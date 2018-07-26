@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:900" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="liquify">Liquify</h1>
+        <img class="liquify" src="sea.jpg" alt="">
+    </div>
+
+
+    <!--//filter-->
+    <svg id="svgeffects">
+        <defs>
+            <filter class="safari_only" id="liquify">
+                <feTurbulence baseFrequency="0.0105" numOctaves="5" result="warp" type="fractalNoise"></feTurbulence>
+                <feDisplacementMap id="liquid" in="SourceGraphic" in2="warp" scale="15" xChannelSelector="R" yChannelSelector="B"></feDisplacementMap>
+            </filter>
+
+            <!--<animate id="liquid1" xlink:href="#liquid" attributeName="scale" dur="5s" values="-100;100;-100" begin="0s;" repeatCount="indefinite" />-->
+        </defs>
+    </svg>
+
+
+    <style type="text/css">
+        h1{
+            position: absolute;
+            z-index: 1;
+            left: 50%;
+            top: 400px;
+            font-size: 120px;
+            -webkit-transform: translate(-50%, 0);
+            -moz-transform: translate(-50%, 0);
+            -ms-transform: translate(-50%, 0);
+            -o-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+            font-family: 'Playfair Display', serif;
+            color: white;
+            letter-spacing: 15px;
+        }
+        .container{
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            height: 1790px;
+        }
+        img{
+            width: 150%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+        .liquify {
+            filter: url("#liquify");
+        }
+        body{
+            height: 1790px;
+        }
+    </style>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript">
+
+        $(window).ready(function () {
+            $("#liquid").attr('scale', 0 );
+        });
+
+        $(window).scroll(function(e){
+            var scrollTop = $(window).scrollTop();
+            var docHeight = $(document).height();
+            var winHeight = $(window).height();
+            var scrollPercent = (scrollTop) / (docHeight - winHeight);
+            var scrollPercentRounded = Math.round(scrollPercent*500);
+
+            //$('#scrollPercentLabel>span').html(scrollPercentRounded);
+                //console.log(scrollPercentRounded);
+            $("#liquid").attr('scale', scrollPercentRounded )
+
+        });
+
+    </script>
+</body>
+</html>
+
+
+
+
